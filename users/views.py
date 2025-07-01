@@ -22,7 +22,6 @@ def create_user_view(request):
 
         user = User(_id=name, name=name, age=age)  # _id is now the MongoDB _id
         user.save(force_insert=True)
-
         return JsonResponse({'message': f'User: {name} created!'}, status=201)
     except NotUniqueError:
         return JsonResponse({'error': 'User with this name already exists'}, status=400)
