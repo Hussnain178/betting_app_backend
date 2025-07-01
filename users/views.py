@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from .models import User  # Ensure this matches your app name
 from mongoengine import NotUniqueError, DoesNotExist
 
-
+# up 
 @api_view(['GET'])
 def test_view(request):
     return JsonResponse({'status': 'API is running'}, status=200)
