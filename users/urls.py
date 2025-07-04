@@ -1,11 +1,13 @@
-from django.urls import path
+# urls.py
 
-from .views import *
+from django.urls import path
+from users import views
 
 urlpatterns = [
-    path('create_user/', create_user_view, name='create_user'),
-    path('update_age', update_age_view, name='update_age'),
-    path('delete_user/', delete_user_view, name='delete_user'),
-    path('get_age/', get_age_view, name='get_age'),
-    path('test_view/', test_view, name='test_view')
+    path("register", views.register_user, name="register_user"),
+    path("login", views.login_user, name="login_user"),
+    path("refresh", views.refresh_token, name="refresh_token"),
+    path("logout", views.logout_user, name="logout_user"),
+    path("protected", views.protected_view, name="protected_view"),
 ]
+# docker run -d -p 6379:6379 redis
