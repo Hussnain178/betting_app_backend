@@ -18,7 +18,7 @@ def create_access_token(user_id, subscription_type):
     payload = {
         "user_id": str(user_id),
         "subscription_type": subscription_type,
-        "exp": datetime.utcnow() + timedelta(days=365)
+        "exp": datetime.utcnow() + timedelta(minutes=15)
     }
     return jwt.encode(payload, JWT_SECRET, algorithm="HS256")
 
