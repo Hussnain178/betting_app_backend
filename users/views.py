@@ -95,3 +95,12 @@ def protected_view(request):
         "message": "Access granted",
         "subscription_type": payload["subscription_type"]
     })
+
+
+@api_view(["GET"])
+def server_check_view(request):
+    name = request.headers.get("Name", '')
+    return JsonResponse({
+        "message": "Server is running",
+        "name": name
+    })
