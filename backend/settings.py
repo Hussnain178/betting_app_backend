@@ -258,6 +258,7 @@ INSTALLED_APPS = [
     'django_mongoengine',
     'django_mongoengine.mongo_auth',
     'users',
+    'matches_data'
 ]
 
 # Middleware
