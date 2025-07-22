@@ -53,14 +53,25 @@ def get_matches_by_sport(request):
     if not sport:
         return Response({'error': 'Sport parameter is required'}, status=400)
 
+    prices = request.GET.get('prices', None)
+
     now = get_utc_now()
     seven_days_later = now + timedelta(days=7)
+    if prices:
+        matches = Match.objects.filter(
+            sport=sport,
+            timestamp__gte=now,
+            timestamp__lt=seven_days_later,
+            prices__exists=True,
+            prices__ne={}
 
-    matches = Match.objects.filter(
-        sport=sport,
-        timestamp__gte=now,
-        timestamp__lt=seven_days_later
-    ).order_by('timestamp')
+        ).order_by('timestamp')
+    else:
+        matches = Match.objects.filter(
+            sport=sport,
+            timestamp__gte=now,
+            timestamp__lt=seven_days_later
+        ).order_by('timestamp')
 
     serializer = MatchSerializer(matches, many=True)
     return Response({
@@ -69,6 +80,7 @@ def get_matches_by_sport(request):
         "count": len(serializer.data),
         "data": serializer.data
     })
+
 
 @api_view(["GET"])
 @jwt_required
@@ -85,15 +97,27 @@ def get_matches_by_sport_country(request):
     if not country:
         return Response({'error': 'Country parameter is required'}, status=400)
 
+    prices = request.GET.get('prices', None)
+
     now = get_utc_now()
     seven_days_later = now + timedelta(days=7)
+    if prices:
+        matches = Match.objects.filter(
+            sport=sport,
+            country=country,
+            timestamp__gte=now,
+            timestamp__lt=seven_days_later,
+            prices__exists=True,
+            prices__ne={}
+        ).order_by('timestamp')
+    else:
+        matches = Match.objects.filter(
+            sport=sport,
+            country=country,
+            timestamp__gte=now,
+            timestamp__lt=seven_days_later,
 
-    matches = Match.objects.filter(
-        sport=sport,
-        country=country,
-        timestamp__gte=now,
-        timestamp__lt=seven_days_later
-    ).order_by('timestamp')
+        ).order_by('timestamp')
 
     serializer = MatchSerializer(matches, many=True)
     return Response({
@@ -235,4 +259,3 @@ def get_matches_with_odds(request):
         "count": len(serializer.data),
         "data": serializer.data
     })
-
