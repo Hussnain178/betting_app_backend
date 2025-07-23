@@ -183,7 +183,7 @@ def get_matches_by_date_range(request):
         }, status=400)
 
 
-@api_view(['GET', 'OPTIONS'])
+@api_view(['POST'])
 @jwt_required
 def get_all_sports(request):
     """
@@ -191,8 +191,8 @@ def get_all_sports(request):
     """
     if request.method == 'OPTIONS':
         return Response({
-        "success": True,
-        "sports": ['test']
+            "success": True,
+            "sports": ['test']
         },
             status=200)
     sports = Match.objects.distinct("sport")
@@ -265,6 +265,7 @@ def get_matches_with_odds(request):
         "count": len(serializer.data),
         "data": serializer.data
     })
+
 
 @api_view(["GET"])
 def matches_data_check(request):
