@@ -489,7 +489,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security Settings
 SECRET_KEY = os.getenv("SECRET_KEY", "fallback_secret_key")
 DEBUG = True
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['144.172.94.64', 'localhost', '127.0.0.1']
 
 # CORS Configuration - Complete Fix
 CORS_ALLOW_ALL_ORIGINS = False  # Must be False
@@ -498,8 +498,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
-    # Add your ngrok URL here:
-    "https://2f435c16ffa7.ngrok-free.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -534,7 +532,6 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
-    "https://2f435c16ffa7.ngrok-free.app",
 ]
 
 # Disable CSRF for API endpoints (alternative approach)
