@@ -1,0 +1,45 @@
+# .github/workflows/deploy.yml
+name: Deploy Django Project
+
+on:
+  push:
+    branches: [ main, production ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12.3'
+
+    - name: Deploy to server
+      env:
+        DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+      run: |
+        # Set up SSH access
+        mkdir -p ~/.ssh
+        echo "$DEPLOY_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan "144.172.94.64" >> ~/.ssh/known_hosts
+        chmod 700 ~/.ssh
+        
+        # Deploy using SSH
+        ssh "root@144.172.94.64" << 'EOF'
+          cd /root/betting_app_backend
+          git pull origin main
+          source venv/bin/activate
+          pip install -r requirements.txt
+          python manage.py migrate
+          python manage.py collectstatic --noinput
+          
+          # Kill existing Django development server processes
+          pkill -f "python.*manage.py runserver" || true
+          
+          # Start Django development server in background
+          nohup python manage.py runserver 0.0.0.0:8000 > /var/log/django.log 2>&1 &
+        EOF
