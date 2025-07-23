@@ -220,123 +220,123 @@
 # STATIC_URL = 'static/'
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
-# import os
-# from pathlib import Path
-# from dotenv import load_dotenv
-#
-# load_dotenv()
-#
-# BASE_DIR = Path(__file__).resolve().parent.parent
-#
-# # Security Settings
-# SECRET_KEY = os.getenv("SECRET_KEY", "fallback_secret_key")
-# DEBUG = True
-# ALLOWED_HOSTS = ["*"]  # For development only
-#
-# # CORS Configuration (Allow all origins for development)
-# CORS_ALLOW_ALL_ORIGINS = True  # ⚠️ Not safe for production!
-# CORS_ALLOWED_ORIGINS = []  # Ignored when CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_CREDENTIALS = True  # Allow cookies/auth headers
-# CORS_ALLOW_METHODS = [
-#     "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
-# ]
-# CORS_ALLOW_HEADERS = [
-#     "accept", "accept-encoding", "authorization", "content-type",
-#     "dnt", "origin", "user-agent", "x-csrftoken", "x-requested-with"
-# ]
-# CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]  # Match your frontend URL
-#
-# # Django Applications
-# INSTALLED_APPS = [
-#     'corsheaders',  # Must come first
-#     'django.contrib.auth',
-#     'django.contrib.contenttypes',
-#     'django.contrib.sessions',
-#     'django.contrib.messages',
-#     'django.contrib.staticfiles',
-#     'rest_framework',
-#     'django_mongoengine',
-#     'django_mongoengine.mongo_auth',
-#     'users',
-#     'matches_data'
-# ]
-#
-# # Middleware
-# MIDDLEWARE = [
-#     'django.middleware.security.SecurityMiddleware',
-#     'corsheaders.middleware.CorsMiddleware',  # Must come early
-#     'django.contrib.sessions.middleware.SessionMiddleware',
-#     'django.middleware.common.CommonMiddleware',
-#     'django.middleware.csrf.CsrfViewMiddleware',
-#     'django.contrib.auth.middleware.AuthenticationMiddleware',
-#     'django.contrib.messages.middleware.MessageMiddleware',
-#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-# ]
-#
-# # URLs and Templates
-# ROOT_URLCONF = 'backend.urls'
-# TEMPLATES = [
-#     {
-#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-#         'DIRS': [],
-#         'APP_DIRS': True,
-#         'OPTIONS': {
-#             'context_processors': [
-#                 'django.template.context_processors.debug',
-#                 'django.template.context_processors.request',
-#                 'django.contrib.auth.context_processors.auth',
-#                 'django.contrib.messages.context_processors.messages',
-#             ],
-#         },
-#     },
-# ]
-#
-# WSGI_APPLICATION = 'backend.wsgi.application'
-#
-# # Database (MongoDB via Django-MongoEngine)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.dummy',
-#     }
-# }
-#
-# MONGODB_DATABASES = {
-#     "default": {
-#         "name": "betting",
-#         "host": "localhost",
-#         "port": 27017,
-#     }
-# }
-#
-# # Authentication
-# AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-# AUTHENTICATION_BACKENDS = [
-#     'django_mongoengine.mongo_auth.backends.MongoAuthBackend',
-# ]
-# MONGOENGINE_USER_DOCUMENT = 'users.models.User'
-#
-# # Session Configuration
-# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-# SESSION_COOKIE_SAMESITE = 'None'  # Allow cross-origin cookies
-# SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
-#
-# # Password Validation
-# AUTH_PASSWORD_VALIDATORS = [
-#     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-#     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-#     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-#     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-# ]
-#
-# # Internationalization
-# LANGUAGE_CODE = 'en-us'
-# TIME_ZONE = 'UTC'
-# USE_I18N = True
-# USE_TZ = True
-#
-# # Static Files
-# STATIC_URL = 'static/'
-# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Security Settings
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback_secret_key")
+DEBUG = True
+ALLOWED_HOSTS = ["*"]  # For development only
+
+# CORS Configuration (Allow all origins for development)
+CORS_ALLOW_ALL_ORIGINS = True  # ⚠️ Not safe for production!
+CORS_ALLOWED_ORIGINS = []  # Ignored when CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies/auth headers
+CORS_ALLOW_METHODS = [
+    "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
+]
+CORS_ALLOW_HEADERS = [
+    "accept", "accept-encoding", "authorization", "content-type",
+    "dnt", "origin", "user-agent", "x-csrftoken", "x-requested-with"
+]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]  # Match your frontend URL
+
+# Django Applications
+INSTALLED_APPS = [
+    'corsheaders',  # Must come first
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'django_mongoengine',
+    'django_mongoengine.mongo_auth',
+    'users',
+    'matches_data'
+]
+
+# Middleware
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Must come early
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+# URLs and Templates
+ROOT_URLCONF = 'backend.urls'
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'backend.wsgi.application'
+
+# Database (MongoDB via Django-MongoEngine)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.dummy',
+    }
+}
+
+MONGODB_DATABASES = {
+    "default": {
+        "name": "betting",
+        "host": "localhost",
+        "port": 27017,
+    }
+}
+
+# Authentication
+AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+AUTHENTICATION_BACKENDS = [
+    'django_mongoengine.mongo_auth.backends.MongoAuthBackend',
+]
+MONGOENGINE_USER_DOCUMENT = 'users.models.User'
+
+# Session Configuration
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_COOKIE_SAMESITE = 'None'  # Allow cross-origin cookies
+SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
+
+# Password Validation
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+]
+
+# Internationalization
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+
+# Static Files
+STATIC_URL = 'static/'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #
 #
 # settings.py - CORS Configuration Fix
@@ -476,184 +476,184 @@
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # settings.py - Complete CORS Fix with Debugging
 
-import os
-from pathlib import Path
-from dotenv import load_dotenv
-
-load_dotenv()
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Security Settings
-SECRET_KEY = os.getenv("SECRET_KEY", "fallback_secret_key")
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
-
-# CORS Configuration - Complete Fix
-CORS_ALLOW_ALL_ORIGINS = False  # Must be False
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173",
-    # Add your ngrok URL here:
-    "https://240efa656a58.ngrok-free.app",
-]
-
-CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_METHODS = [
-    "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
-]
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
-    "cache-control",
-    "x-forwarded-for",
-    "x-forwarded-proto",
-]
-
-# Additional CORS settings for better compatibility
-CORS_PREFLIGHT_MAX_AGE = 86400
-CORS_EXPOSE_HEADERS = [
-    "content-type",
-    "x-csrftoken",
-]
-
-# CSRF Configuration
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5173",
-    "https://240efa656a58.ngrok-free.app",
-]
-
-# Disable CSRF for API endpoints (alternative approach)
-CSRF_COOKIE_SECURE = False
-CSRF_COOKIE_HTTPONLY = False
-CSRF_USE_SESSIONS = False
-
-# Django Applications
-INSTALLED_APPS = [
-    'corsheaders',  # MUST be first
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'django_mongoengine',
-    'django_mongoengine.mongo_auth',
-    'users',
-    'matches_data'
-]
-
-# Middleware - Order is crucial
-MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # MUST be first
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-# REST Framework Configuration
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [],
-    'DEFAULT_PERMISSION_CLASSES': [],
-    'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',
-    ],
-}
-
-ROOT_URLCONF = 'backend.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-WSGI_APPLICATION = 'backend.wsgi.application'
-
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.dummy',
-    }
-}
-
-MONGODB_DATABASES = {
-    "default": {
-        "name": "betting",
-        "host": "localhost",
-        "port": 27017,
-    }
-}
-
-# Authentication
-AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-AUTHENTICATION_BACKENDS = [
-    'django_mongoengine.mongo_auth.backends.MongoAuthBackend',
-]
-MONGOENGINE_USER_DOCUMENT = 'users.models.User'
-
-# Session Configuration
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_HTTPONLY = True
-
-# Logging for debugging CORS
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'corsheaders': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
-
-# Password Validation
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
-
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-
-STATIC_URL = 'static/'
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# import os
+# from pathlib import Path
+# from dotenv import load_dotenv
+#
+# load_dotenv()
+#
+# BASE_DIR = Path(__file__).resolve().parent.parent
+#
+# # Security Settings
+# SECRET_KEY = os.getenv("SECRET_KEY", "fallback_secret_key")
+# DEBUG = True
+# ALLOWED_HOSTS = ["*"]
+#
+# # CORS Configuration - Complete Fix
+# CORS_ALLOW_ALL_ORIGINS = False  # Must be False
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://localhost:5173",
+#     "http://127.0.0.1:3000",
+#     "http://127.0.0.1:5173",
+#     # Add your ngrok URL here:
+#     "https://240efa656a58.ngrok-free.app",
+# ]
+#
+# CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_METHODS = [
+#     "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
+# ]
+# CORS_ALLOW_HEADERS = [
+#     "accept",
+#     "accept-encoding",
+#     "authorization",
+#     "content-type",
+#     "dnt",
+#     "origin",
+#     "user-agent",
+#     "x-csrftoken",
+#     "x-requested-with",
+#     "cache-control",
+#     "x-forwarded-for",
+#     "x-forwarded-proto",
+# ]
+#
+# # Additional CORS settings for better compatibility
+# CORS_PREFLIGHT_MAX_AGE = 86400
+# CORS_EXPOSE_HEADERS = [
+#     "content-type",
+#     "x-csrftoken",
+# ]
+#
+# # CSRF Configuration
+# CSRF_TRUSTED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://localhost:5173",
+#     "http://127.0.0.1:3000",
+#     "http://127.0.0.1:5173",
+#     "https://240efa656a58.ngrok-free.app",
+# ]
+#
+# # Disable CSRF for API endpoints (alternative approach)
+# CSRF_COOKIE_SECURE = False
+# CSRF_COOKIE_HTTPONLY = False
+# CSRF_USE_SESSIONS = False
+#
+# # Django Applications
+# INSTALLED_APPS = [
+#     'corsheaders',  # MUST be first
+#     'django.contrib.auth',
+#     'django.contrib.contenttypes',
+#     'django.contrib.sessions',
+#     'django.contrib.messages',
+#     'django.contrib.staticfiles',
+#     'rest_framework',
+#     'django_mongoengine',
+#     'django_mongoengine.mongo_auth',
+#     'users',
+#     'matches_data'
+# ]
+#
+# # Middleware - Order is crucial
+# MIDDLEWARE = [
+#     'corsheaders.middleware.CorsMiddleware',  # MUST be first
+#     'django.middleware.security.SecurityMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# ]
+#
+# # REST Framework Configuration
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [],
+#     'DEFAULT_PERMISSION_CLASSES': [],
+#     'DEFAULT_RENDERER_CLASSES': [
+#         'rest_framework.renderers.JSONRenderer',
+#     ],
+# }
+#
+# ROOT_URLCONF = 'backend.urls'
+#
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [],
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+# ]
+#
+# WSGI_APPLICATION = 'backend.wsgi.application'
+#
+# # Database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.dummy',
+#     }
+# }
+#
+# MONGODB_DATABASES = {
+#     "default": {
+#         "name": "betting",
+#         "host": "localhost",
+#         "port": 27017,
+#     }
+# }
+#
+# # Authentication
+# AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+# AUTHENTICATION_BACKENDS = [
+#     'django_mongoengine.mongo_auth.backends.MongoAuthBackend',
+# ]
+# MONGOENGINE_USER_DOCUMENT = 'users.models.User'
+#
+# # Session Configuration
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+# SESSION_COOKIE_SAMESITE = 'Lax'
+# SESSION_COOKIE_SECURE = False
+# SESSION_COOKIE_HTTPONLY = True
+#
+# # Logging for debugging CORS
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'corsheaders': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
+#
+# # Password Validation
+# AUTH_PASSWORD_VALIDATORS = [
+#     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+#     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+#     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+#     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+# ]
+#
+# LANGUAGE_CODE = 'en-us'
+# TIME_ZONE = 'UTC'
+# USE_I18N = True
+# USE_TZ = True
+#
+# STATIC_URL = 'static/'
+# DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
