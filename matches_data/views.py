@@ -259,3 +259,10 @@ def get_matches_with_odds(request):
         "count": len(serializer.data),
         "data": serializer.data
     })
+
+@api_view(["GET"])
+def matches_data_check(request):
+    return Response({
+        "success": True,
+        "count": 'server is running',
+    })
