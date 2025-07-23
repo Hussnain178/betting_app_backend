@@ -183,12 +183,18 @@ def get_matches_by_date_range(request):
         }, status=400)
 
 
-@api_view(["GET"])
+@api_view(['GET', 'OPTIONS'])
 @jwt_required
 def get_all_sports(request):
     """
     Return unique sports from matches
     """
+    if request.method == 'OPTIONS':
+        return Response({
+        "success": True,
+        "sports": ['test']
+        },
+            status=200)
     sports = Match.objects.distinct("sport")
     return Response({
         "success": True,
