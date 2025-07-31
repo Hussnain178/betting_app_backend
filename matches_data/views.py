@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from datetime import datetime, timedelta
 import pytz
 from .models import Match
-from .serializers import MatchSerializer, SportSerializer
+from .serializers import MatchSerializer, SportSerializer, MatchFilterSerializer
 from .auth import jwt_required
 
 
@@ -127,6 +127,50 @@ def get_matches_by_sport_country(request):
         "data": serializer.data
     })
 
+@api_view(["GET"])
+def get_matches_by_sport_country_games(request):
+    """
+    Return matches for a specific sport from now to 7 days ahead
+    """
+    sport = request.GET.get('sport')
+
+    if not sport:
+        return Response({'error': 'Sport parameter is required'}, status=400)
+    country = request.GET.get('country')
+
+    if not country:
+        return Response({'error': 'Country parameter is required'}, status=400)
+
+    prices = request.GET.get('prices', None)
+
+    now = get_utc_now()
+    seven_days_later = now + timedelta(days=7)
+    if prices:
+        matches = Match.objects.filter(
+            sport=sport,
+            country=country,
+            timestamp__gte=now,
+            timestamp__lt=seven_days_later,
+            prices__exists=True,
+            prices__ne={}
+        ).order_by('timestamp')
+    else:
+        matches = Match.objects.filter(
+            sport=sport,
+            country=country,
+            timestamp__gte=now,
+            timestamp__lt=seven_days_later,
+
+        ).order_by('timestamp')
+
+    serializer = MatchFilterSerializer(matches, many=True)
+    return Response({
+        "success": True,
+        "sport": sport,
+        "count": len(serializer.data),
+        "data": serializer.data
+    })
+
 
 @api_view(["GET"])
 @jwt_required
@@ -183,19 +227,36 @@ def get_matches_by_date_range(request):
         }, status=400)
 
 
-@api_view(['POST'])
-@jwt_required
+@api_view(['GET'])
 def get_all_sports(request):
     """
     Return unique sports from matches
     """
-    if request.method == 'OPTIONS':
-        return Response({
-            "success": True,
-            "sports": ['test']
-        },
-            status=200)
-    sports = Match.objects.distinct("sport")
+    # if request.method == 'OPTIONS':
+    #     return Response({
+    #         "success": True,
+    #         "sports": ['test']
+    #     },
+    #         status=200)
+    # sports = Match.objects.distinct("sport")
+    # return Response({
+    #     "success": True,
+    #     "sports": sorted(sports) if sports else []
+    # })
+    now = get_utc_now()
+    seven_days_later = now + timedelta(days=7)
+
+    # Filter matches with prices and timestamp in next 7 days
+    sports = Match.objects.filter(
+        timestamp__gte=now,
+        timestamp__lt=seven_days_later,
+        prices__exists=True,
+        prices__ne={}
+    ).distinct('sport')
+
+    # Extract unique sport values
+    # sports = matches.values_list('sport', flat=True)
+
     return Response({
         "success": True,
         "sports": sorted(sports) if sports else []
@@ -203,16 +264,21 @@ def get_all_sports(request):
 
 
 @api_view(["GET"])
-@jwt_required
 def get_countries(request):
     sport = request.GET.get('sport')
 
     if not sport:
         return Response({'error': 'Sport parameter is required'}, status=400)
+    now = get_utc_now()
+    seven_days_later = now + timedelta(days=7)
 
     # Get unique countries for the specified sport
     countries = Match.objects.filter(
-        sport=sport
+        sport=sport,
+        timestamp__gte=now,
+        timestamp__lt=seven_days_later,
+        prices__exists=True,
+        prices__ne={}
     ).distinct('country')
 
     return Response({
@@ -229,6 +295,29 @@ def get_match_by_id(request, match_id):
     Get a specific match by match_id
     """
     try:
+        match = Match.objects.get(match_id=match_id)
+        serializer = MatchSerializer(match)
+        return Response({
+            "success": True,
+            "data": serializer.data
+        })
+    except Match.DoesNotExist:
+        return Response({
+            "success": False,
+            "error": "Match not found"
+        }, status=404)
+
+@api_view(["GET"])
+@jwt_required
+def get_match_by_id_(request):
+    """
+    Get a specific match by match_id
+    """
+    try:
+        match_id = request.GET.get('match_id')
+
+        if not match_id:
+            return Response({'error': 'Sport parameter is required'}, status=400)
         match = Match.objects.get(match_id=match_id)
         serializer = MatchSerializer(match)
         return Response({

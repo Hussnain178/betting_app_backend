@@ -37,6 +37,49 @@ class MatchSerializer(serializers.Serializer):
             "odds": instance.prices or {},
             "has_odds": bool(instance.prices and len(instance.prices) > 0)
         }
+class MatchFilterSerializer(serializers.Serializer):
+    def to_representation(self, instance):
+        # Handle timezone-aware datetime serialization
+        start_time = None
+        if instance.timestamp:
+            if isinstance(instance.timestamp, datetime):
+                if instance.timestamp.tzinfo is None:
+                    utc_timestamp = instance.timestamp.replace(tzinfo=pytz.UTC)
+                else:
+                    utc_timestamp = instance.timestamp.astimezone(pytz.UTC)
+                start_time = utc_timestamp.isoformat()
+            else:
+                start_time = str(instance.timestamp)
+
+        # Filter odds: extract '3-way' from 'Full Match' for each provider
+        filtered_odds = {}
+        if instance.prices:
+            for provider, markets in instance.prices.items():
+                if isinstance(markets, dict):
+                    full_match_market = markets.get("Full Match", {})
+                    three_way_odds = full_match_market.get("3-way")
+                    if three_way_odds:  # Only include if exists
+                        filtered_odds[provider] = {
+                            "Full Match": {
+                                "3-way": three_way_odds
+                            }
+                        }
+
+        return {
+            "id": str(instance._id) if instance._id else None,
+            "home_team": instance.competitor1,
+            "away_team": instance.competitor2,
+            "match_id": instance.match_id,
+            "start_time": start_time,
+            "start_time_utc": start_time,
+            "country": instance.country,
+            "tournament": instance.group,
+            "sport": instance.sport,
+            "status": instance.status,
+            "is_country_match": getattr(instance, 'is_country', False),
+            "odds": filtered_odds,  # Now contains only filtered '3-way' under 'Full Match'
+            "has_odds": bool(filtered_odds)  # True if any filtered odds exist
+        }
 
 
 class SportSerializer(serializers.Serializer):
