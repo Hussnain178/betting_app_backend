@@ -88,9 +88,13 @@ class MatchFilterSerializer(serializers.Serializer):
             "home_score": instance.currentScore_competitor1,
             "away_score": instance.currentScore_competitor2,
             "ht_home_score": instance.htScore_competitor1,
-            "ht_away_score": instance.htScore_competitor2
-        }
+            "ht_away_score": instance.htScore_competitor2,
+            "cgs_home_score": instance.currentGameScore_competitor1,
+            "cgs_away_score": instance.currentGameScore_competitor2,
+            "css_home_score": instance.currentSetScore_competitor1,
+            "css_away_score": instance.currentSetScore_competitor2,
 
+        }
 
 class SportSerializer(serializers.Serializer):
     def to_representation(self, instance):

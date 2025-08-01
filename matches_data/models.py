@@ -26,6 +26,10 @@ class Match(Document):
     currentScore_competitor2 = fields.StringField()
     htScore_competitor1 = fields.StringField()
     htScore_competitor2 = fields.StringField()
+    currentSetScore_competitor1 = fields.StringField()
+    currentSetScore_competitor2 = fields.StringField()
+    currentGameScore_competitor1 = fields.StringField()
+    currentGameScore_competitor2 = fields.StringField()
     meta = {
         'collection': 'matches_data',
         'db_alias': 'default',
