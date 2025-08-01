@@ -37,7 +37,9 @@ class MatchSerializer(serializers.Serializer):
             "odds": instance.prices or {},
             "has_odds": bool(instance.prices and len(instance.prices) > 0),
             "home_score": instance.currentScore_competitor1,
-            "away_score": instance.currentScore_competitor2
+            "away_score": instance.currentScore_competitor2,
+            "ht_home_score": instance.htScore_competitor1,
+            "ht_away_score": instance.htScore_competitor2
         }
 
 
@@ -84,7 +86,9 @@ class MatchFilterSerializer(serializers.Serializer):
             "odds": filtered_odds,  # Now contains only filtered '3-way' under 'Full Match'
             "has_odds": bool(filtered_odds),  # True if any filtered odds exist
             "home_score": instance.currentScore_competitor1,
-            "away_score": instance.currentScore_competitor2
+            "away_score": instance.currentScore_competitor2,
+            "ht_home_score": instance.htScore_competitor1,
+            "ht_away_score": instance.htScore_competitor2
         }
 
 

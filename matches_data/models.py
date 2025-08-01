@@ -24,6 +24,8 @@ class Match(Document):
     website_source = fields.StringField()  # Track which scraper added this match
     currentScore_competitor1 = fields.StringField()
     currentScore_competitor2 = fields.StringField()
+    htScore_competitor1 = fields.StringField()
+    htScore_competitor2 = fields.StringField()
     meta = {
         'collection': 'matches_data',
         'db_alias': 'default',
