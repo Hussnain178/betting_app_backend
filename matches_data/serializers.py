@@ -35,8 +35,12 @@ class MatchSerializer(serializers.Serializer):
             "match_url": getattr(instance, 'match_link', None),
             "is_country_match": getattr(instance, 'is_country', False),
             "odds": instance.prices or {},
-            "has_odds": bool(instance.prices and len(instance.prices) > 0)
+            "has_odds": bool(instance.prices and len(instance.prices) > 0),
+            "home_score": instance.currentScore_competitor1,
+            "away_score": instance.currentScore_competitor2
         }
+
+
 class MatchFilterSerializer(serializers.Serializer):
     def to_representation(self, instance):
         # Handle timezone-aware datetime serialization
@@ -78,7 +82,9 @@ class MatchFilterSerializer(serializers.Serializer):
             "status": instance.status,
             "is_country_match": getattr(instance, 'is_country', False),
             "odds": filtered_odds,  # Now contains only filtered '3-way' under 'Full Match'
-            "has_odds": bool(filtered_odds)  # True if any filtered odds exist
+            "has_odds": bool(filtered_odds),  # True if any filtered odds exist
+            "home_score": instance.currentScore_competitor1,
+            "away_score": instance.currentScore_competitor2
         }
 
 

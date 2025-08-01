@@ -164,12 +164,34 @@ def get_matches_by_sport_country_games(request):
         ).order_by('timestamp')
 
     serializer = MatchFilterSerializer(matches, many=True)
-    return Response({
+    return (Response({
         "success": True,
         "sport": sport,
         "count": len(serializer.data),
         "data": serializer.data
-    })
+    }))
+@api_view(["GET"])
+def get_live_matches(request):
+    """
+    Return matches for a specific sport from now to 7 days ahead
+    """
+
+    now = get_utc_now()
+    seven_days_later = now + timedelta(days=7)
+    matches = Match.objects.filter(
+        # timestamp__gte=now,
+        # timestamp__lt=seven_days_later,
+        prices__exists=True,
+        prices__ne={},
+        status='live'
+    ).order_by('timestamp')
+
+    serializer = MatchFilterSerializer(matches, many=True)
+    return (Response({
+        "success": True,
+        "count": len(serializer.data),
+        "data": serializer.data
+    }))
 
 
 @api_view(["GET"])
